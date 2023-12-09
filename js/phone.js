@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText='iphone', isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
@@ -15,20 +15,20 @@ const displayPhones = (phones, isShowAll) => {
 
     const showAllContainer = document.getElementById('show-all-container');
     // display show all button if items are more than 12
-    if(phones.length > 12 && !isShowAll){
+    if (phones.length > 12 && !isShowAll) {
         showAllContainer.classList.remove('hidden');
     }
-    else{
+    else {
         showAllContainer.classList.add('hidden');
     }
 
     // display only first 12 phones if not show all
-    if(!isShowAll){
-        phones = phones.slice(0,12);
+    if (!isShowAll) {
+        phones = phones.slice(0, 12);
     }
 
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
         // 2. create a div
         const phoneCard = document.createElement('div');
         // 3. inner html
@@ -53,7 +53,7 @@ const displayPhones = (phones, isShowAll) => {
 }
 
 //handle search button
-const searchHandle = (isShowAll) =>{
+const searchHandle = (isShowAll) => {
     toggleLoadingDots(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
@@ -61,37 +61,55 @@ const searchHandle = (isShowAll) =>{
     loadPhone(searchText, isShowAll);
 }
 
-
-// handle search button 2
-// const searchHandle2 = () =>{
-//     toggleLoadingDots(true);
-//     const searchField2 = document.getElementById('search-field2');
-//     const searchText2 = searchField2.value;
-//     loadPhone(searchText2);
-// }
-
-const toggleLoadingDots = (isLoading) =>{
+const toggleLoadingDots = (isLoading) => {
     const loadingDots = document.getElementById('loading-dots');
-    if(isLoading){
+    if (isLoading) {
         loadingDots.classList.remove('hidden');
     }
-    else{
+    else {
         loadingDots.classList.add('hidden');
     }
 }
 
 // handle show details button
-const handleShowDetails = async(id) =>{
-    console.log('clicked', id)
+const handleShowDetails = async (id) => {
+    // console.log('clicked', id)
     // load single phone data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     const data = await res.json();
-    console.log(data);
+    const phone = data.data;
+
+    showPhoneDetails(phone);
+}
+
+const showPhoneDetails = (phone) => {
+    console.log(phone);
+    const showDetailsContainer = document.getElementById('show-detail-container');
+    showDetailsContainer.innerHTML = `
+        <div class="flex flex-col items-center my-8 bg-slate-100">
+        <img src="${phone.image}" alt="" />
+        </div>
+        <p class="font-bold text-2xl">${phone.name}</p>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+        <h3><span class="text-lg font-bold">Storage:</span>${phone?.mainFeatures?.storage}</h3>
+        <h3><span class="text-lg font-bold">Display Size:</span>${phone?.mainFeatures?.displaySize
+        }</h3>
+        <h3><span class="text-lg font-bold">Chipset:</span>${phone?.mainFeatures?.chipSet
+        }</h3>
+        <h3><span class="text-lg font-bold">Memory
+        :</span>${phone?.mainFeatures?.memory
+        }</h3>
+        <h3><span class="text-lg font-bold">Brand:</span>${phone?.brand}</h3>
+
+    `
+
+    // show the modal
+    show_details_modal.showModal();
 }
 
 // handle show all
-const handleShowAll = () =>{
+const handleShowAll = () => {
     searchHandle(true);
 }
 
-// loadPhone()
+loadPhone();

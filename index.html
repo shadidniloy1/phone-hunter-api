@@ -11,18 +11,12 @@
 
 <body>
     <header>
-        <h4 class="text-6xl">Hunting Phone</h4>
+        <h4 class="text-6xl text-center py-8">Hunting Phone</h4>
     </header>
     <main class="container mx-auto mt-8">
-        <section class="bg-gray-100 p-4 m-4">
-            <input id="search-field" type="text" placeholder="search..." class="input input-bordered w-full max-w-xs" />
+        <section class="bg-gray-100 p-4 m-4 text-center">
+            <input id="search-field" type="text" placeholder="search..." class="input input-bordered w-full max-w-xs justify-center" />
             <button onclick="searchHandle()" class="btn btn-accent">Search</button>
-
-            <!-- another search bar -->
-            <!-- <input id="search-field2" type="text" placeholder="Search..."
-                class="input input-bordered w-full max-w-xs" />
-            <button onclick="searchHandle2()" class="btn btn-primary">Search</button> -->
-
         </section>
 
         <!-- search result -->
@@ -44,15 +38,16 @@
 
         <!-- show details modal -->
         <!-- Open the modal using ID.showModal() method -->
-        <button class="btn" onclick="show_details_modal.showModal()">open modal</button>
+        <!-- <button class="btn text-center" onclick="">open modal</button> -->
         <dialog id="show_details_modal" class="modal modal-bottom sm:modal-middle">
             <div class="modal-box">
-                <h3 class="font-bold text-lg">Hello!</h3>
-                <p class="py-4">Press ESC key or click the button below to close</p>
+                <div class="justify-center text-center" id="show-detail-container">
+
+                </div>
                 <div class="modal-action">
                     <form method="dialog">
                         <!-- if there is a button in form, it will close the modal -->
-                        <button class="btn">Close</button>
+                        <button class="btn text-center justify-center mx-auto">Close</button>
                     </form>
                 </div>
             </div>
